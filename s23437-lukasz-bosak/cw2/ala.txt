@@ -1,0 +1,20 @@
+gdy skrypt napiszemy w ten sposób:
+
+#!/bin/bash
+
+A=ala
+
+echo $A ma kota, a kot ma $ {A}ę
+
+wypisze nam : Ala ma kota, a kot ma Alaę;
+
+Aby wyswietliło prawidłowo Ala ma kota a kot ma alę 
+
+mozemy to zrobic na 2 sposoby:
+
+echo $A ma kota, a kot ma ${A/a/ę} - zamieni nam a na ę
+
+lub 
+
+
+echo $A ma kota, a kot ma ${A:0:2}ę - wypisze nam 2 peirwsze litery zmiennej A i dopisze na koncu literę ę.

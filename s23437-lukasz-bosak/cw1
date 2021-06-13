@@ -1,0 +1,15 @@
+Podczas tych cwiczen zainstalowalismy na wirtualnej maszynie darmowy system operacyjny debian.
+
+
+Instalacja
+Pobieramy debiana z debian.org ( mamy wiele wersji debiana do wyboru)
+Tworzymy nową wirtualna maszyne w virtual box, pamietamy aby ilość zarezerwowanej pamięci RA< była wielekrotnością 2
+Dodajemy wirtualny dysk który bedzie przydzielany dynamicznie ( bedzie zwiekszał się wraz z użyciem)
+
+Ustawiamy maszyne wirtualną
+podczas uruchomienia wciskamy f12 co pozwala nam wybrac typ instalacji.
+instalujemy wykonując polecenia wyswietlane nam na ekreanie.
+
+ciekawe było tworzenie i przydzielanie partycji manualnie dzieki opcji 'manual'
+
+Boot loader to program który uruchamia komputer. 

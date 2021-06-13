@@ -1,0 +1,45 @@
+ZMIENNE
+
+PATH - przechowuje kat ktore beda przeszukiwane:
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw2$ echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+
+RANDOM - generator liczb pseudolosowych (nie polecany)
+
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw2$ echo $RANDOM
+29643
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw2$ echo $RANDOM
+15003
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw2$ echo $RANDOM
+9437
+
+
+PWD - zmienna ta przechowuje bierzzącą ścieżkę
+
+
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw2$ echo $ PWD
+$ PWD
+
+USER - przechowuje usera - u mnie ubuntu
+
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw2$ echo $USER
+ubuntu
+
+HOME - Zawiera scieżke do kat domowego, podobnie jak ~
+
+HOSTNAME - Wypisuje hosta
+
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw2$ echo $HOSTNAME
+bss-ubu1804
+
+gdybym byl podlaczony do szyflandii wyisalby mi szuflandia.
+
+OSTYPE - Zawiera system plików
+
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw2$ echo $OSTYPE
+linux-gnu
+
+
+
+
+

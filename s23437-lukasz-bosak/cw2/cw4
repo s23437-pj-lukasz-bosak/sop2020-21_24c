@@ -1,0 +1,30 @@
+
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw2$ ls -l
+total 28
+-rwxrw-r-- 1 ubuntu ubuntu   57 Jun 13 09:58 ala.sh
+-rw-rw-r-- 1 ubuntu ubuntu  401 Jun 13 10:03 ala.txt
+-rw-rw-r-- 1 ubuntu ubuntu 1072 Jun 13 10:10 cw3.txt
+-rw-rw-r-- 1 ubuntu ubuntu    0 Jun 13 10:11 cw4
+-rwxrw-r-- 1 ubuntu ubuntu  171 Jun 13 09:46 skryptkrolik.sh
+-rw-rw-r-- 1 ubuntu ubuntu  333 Jun 13 09:50 skryptkrolik.txt
+-rwxrw-r-- 1 ubuntu ubuntu   80 Jun 13 07:08 witam.sh
+-rw-rw-r-- 1 ubuntu ubuntu   46 Jun 13 09:54 witam.txt
+
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw2$ X=$(ls -l)
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw2$ echo $X
+total 28 -rwxrw-r-- 1 ubuntu ubuntu 57 Jun 13 09:58 ala.sh -rw-rw-r-- 1 ubuntu ubuntu 401 Jun 13 10:03 ala.txt -rw-rw-r-- 1 ubuntu ubuntu 1072 Jun 13 10:10 cw3.txt -rw-rw-r-- 1 ubuntu ubuntu 0 Jun 13 10:11 cw4 -rwxrw-r-- 1 ubuntu ubuntu 171 Jun 13 09:46 skryptkrolik.sh -rw-rw-r-- 1 ubuntu ubuntu 333 Jun 13 09:50 skryptkrolik.txt -rwxrw-r-- 1 ubuntu ubuntu 80 Jun 13 07:08 witam.sh -rw-rw-r-- 1 ubuntu ubuntu 46 Jun 13 09:54 witam.txt
+
+# po wywolaniu zmiennej X wypisuje mi wyjscie w jednej lini jako ciag znaków, aby wypisało mi tak jak komenda ls -l musze zapisac w cucdzysłowiu echo "$X".
+
+
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw2$ echo "$X"
+total 28
+-rwxrw-r-- 1 ubuntu ubuntu   57 Jun 13 09:58 ala.sh
+-rw-rw-r-- 1 ubuntu ubuntu  401 Jun 13 10:03 ala.txt
+-rw-rw-r-- 1 ubuntu ubuntu 1072 Jun 13 10:10 cw3.txt
+-rw-rw-r-- 1 ubuntu ubuntu    0 Jun 13 10:11 cw4
+-rwxrw-r-- 1 ubuntu ubuntu  171 Jun 13 09:46 skryptkrolik.sh
+-rw-rw-r-- 1 ubuntu ubuntu  333 Jun 13 09:50 skryptkrolik.txt
+-rwxrw-r-- 1 ubuntu ubuntu   80 Jun 13 07:08 witam.sh
+-rw-rw-r-- 1 ubuntu ubuntu   46 Jun 13 09:54 witam.txt
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw2$ 
