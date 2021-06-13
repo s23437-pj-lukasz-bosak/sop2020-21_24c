@@ -1,0 +1,92 @@
+1)Napisz skrypt, który sprawdzi, czy podano więcej niż jeden parametr. Jeśli tak, to niech wyświetli pierwszy parametr. 
+Jeśli nie, to niech wyświetli komunikat, że nie podano parametrów.
+
+
+
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ touch skryptcw1.sh
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ chmod u+x skryptcw1.sh 
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ ls
+cw3.txt  skryptcw1.sh
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ geene skryptcw1.sh 
+geene: command not found
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ geany skryptcw1.sh 
+
+(geany:16004): dbind-WARNING **: 10:39:35.132: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ ./skryptcw1.sh 
+Nie podano parametrów
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ ./skryptcw1.sh testarg
+Nie podano parametrów
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ ./skryptcw1.sh testarg1 testarg2
+testarg1
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ 
+
+skrypt w zalaczonym pliku.
+
+2)Napisz skrypt, który sprawdzi, czy istnieje plik config.cfg w bieżącym katalogu. Jeśli taki plik istnieje, to niech go wykona. 
+Jeśli nie istnieje, to niech sprawdzi, czy podano argument i wykona plik o nazwie takiej jak wartość argumentu (parametru) skryptu.
+ Jeśli żadne z powyższych nie nastąpiło, to niech wyświetli komunikat o błędzie.
+
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ touch skrypt2.sh
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ chmod u+x skrypt2.sh
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ ls
+cw3.txt  skrypt2.sh  skryptcw1.sh
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ geany skrypt2.sh
+
+(geany:16059): dbind-WARNING **: 10:50:25.386: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ ./skrypt2.sh
+Błąd
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ ./strypt2.sh test
+bash: ./strypt2.sh: No such file or directory
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ ./strypt2.sh test
+bash: ./strypt2.sh: No such file or directory
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ touch abc
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ nano abc
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ nano abc
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ ./strypt2.sh abc
+bash: ./strypt2.sh: No such file or directory
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ ls
+abc  cw3.txt  skrypt2.sh  skryptcw1.sh
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ ./strypt2.sh
+bash: ./strypt2.sh: No such file or directory
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ ./strypt2.sh abc
+bash: ./strypt2.sh: No such file or directory
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ 
+
+nie zadzialalo nie nadalem uprawnien do pliku abc
+
+
+
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ nano skrypt.sh
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ nano skrypt2.sh
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ nano config.cfg 
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ ./skrypt2.sh
+./skrypt2.sh: line 4: ./config.cfg: Permission denied
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ 
+
+
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ chmod u+x abc
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ chmod u+x config.cfg
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ ./skrypt2.sh
+config.cfg
+ubuntu@bss-ubu1804:~/Desktop/s23437-lukasz-bosak/cw3$ 
+
+działa :)
+
+
+3)Napisz skrypt, który sprawdzi, czy jego nazwa kończy się .sh. Jeśli nie, to niech zmieni swoją nazwę poprzez 
+dopisanie tego rozszerzenia (rozszerzenie nazwy pliku). Sprawdzenie można zrobić na kilka sposobów, polecam przetestować 2 typowe:
+dopasowanie do wyrażenia regularnego (to jest bardziej uniwersalny sposób)
+porównanie ostatnich 3 liter nazwy skryptu
+
+Ciąg dalszy doślę na poczatku tygodnia. 
+
+
+
+
+
+
+
+
+
+
+
