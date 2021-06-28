@@ -1,0 +1,37 @@
+CW 6 
+
+Sygnały 
+
+s23437@szuflandia:~/cw7$ cat
+aaaaa
+aaaaa
+^C
+s23437@szuflandia:~/cw7$ 
+
+
+ctrl+c jest sygnałem od nr 2: teoretycznie dziala zawsza, ale gdy do programu bedziemy potrzebowali sygnału
+to crtl+c wysle sygnał o nr 2. w przykładowym programie nie konczył jego dzialania. 
+
+aby program mogł obslugiwac sygnał sa 2 sposoby:
+
+1) #include <signal.h>
+
+	sighandler_t signal(int signum, sighandler_t handler)
+
+int signum" ma uruchomic funkcje "sighandler_t handler".
+Niezależnie od miejsca w programie zostanie wykonany skok do tej funkcji.
+
+funkcja ktora obsluguje sygnał to : 
+
+void signalHandler(int s) {
+	}	
+
+nie jest ona wywoływana jawnie. jest wywoływana przez system operacyjny.
+
+
+mozna wyłaczyc funkcje sygnału:
+
+SIG_IGN sygnał bedzie ignorowany.
+
+Gniazda:
+

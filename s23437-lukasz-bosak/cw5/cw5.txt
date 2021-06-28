@@ -1,0 +1,504 @@
+Procesy:
+
+
+1)Napisz program, który przedstawi swoj nr PID oraz PPID:
+
+#include <stdio.h>
+#include <unistd.h>
+
+int main(){
+
+    printf("PID: %d\tPPID: %d\n", getpid(), getppid());
+
+return 0;
+
+}
+
+
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ gcc -Wall -ansi -pedantic -o zadanie1 zadanie1.c
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ zadanie1
+zadanie1: command not found
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ ./zadanie1
+PID: 6837       PPID: 938
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ 
+
+działa.
+
+zad2)
+
+#include <stdio.h>
+#include <unistd.h>
+
+int main(){
+
+    int input;
+
+    printf("PID: %d\tPPID: %d\n", getpid(), getppid());
+       
+    scanf("%d", &input);                   // mozemy skozystac z funkcji skanf, lub getch.
+
+return 0;
+
+}
+
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ gcc -Wall -ansi -pedantic -o zadanie1 zadanie1.c
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ ./zadanie1
+PID: 1146	PPID: 1113
+
+
+otwieram 2 gi terminal w nowym oknie 
+
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ kill 1162
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ 
+
+wysyłam polecenie kill 
+
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ ./zadanie1
+PID: 1162	PPID: 1113
+Terminated
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ 
+
+
+
+zad 4)
+
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+int main(){
+
+    int input;
+
+    
+       
+    /* scanf("%d", &input); */
+    pid_t pid = fork();
+
+    if(pid >0){
+        printf("R PID: %d\tPPID: %d\n", getpid(), getppid());
+        waitpid(0, &input, 0);
+        printf("rodzic zakonczyl czekac na swoje dziecko\n");
+        /* rodzic */
+    }else if (pid == 0) {
+        printf("D PID: %d\tPPID: %d\n", getpid(), getppid());
+        /* dziecko */
+    }else {
+        printf("nie udalo sie utworzyc dziecka\n");
+        /* dziecka nie udalo sie utworzyc. */
+    }
+
+
+return 0;
+
+}
+
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ ./zadanie1
+R PID: 1218	PPID: 1113
+D PID: 1219	PPID: 1218
+rodzic zakonczyl czekac na swoje dziecko
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ 
+
+widzimy ze rodzic wystartował , dziecko wystartował rodzic zakonczył czekac na dziecko i program sie zakonczył.
+
+zad5)
+
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <stdlib.h>
+
+int main(int argc, char** argv){
+
+    int input;
+    
+       
+    /* scanf("%d", &input); */
+    pid_t pid = fork();
+        int liczba=atoi(argv[1]);
+
+    if(pid >0){
+        int suma=0;
+        int i;
+        for(i=0; i<liczba; i++){
+            suma+=i;
+        }
+        waitpid(0, &input, 0);
+        printf("Duma z rzodzica: %d\n", suma);
+        /* rodzic */
+    }else if (pid == 0) {
+        int i;
+        for(i=1; i<liczba;i=i+2){
+            
+            printf("dziecko, liczba nieparzysta: %d\n", i);
+        }
+        /* dziecko */
+    }else {
+        printf("nie udalo sie utworzyc dziecka\n");
+        /* dziecka nie udalo sie utworzyc. */
+    }
+
+
+return 0;
+
+}
+
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ gcc -Wall -ansi -pedantic -o zadanie5 zadanie5.c
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ ./zadanie5
+Segmentation fault (core dumped)
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ 
+
+    int input;
+    int liczba=atoi(argv[1]);
+       
+    /* scanf("%d", &input); */
+    
+    pid_t pid = fork();
+        
+
+    if(pid >0){
+        int suma=0;
+        int i;
+        for(i=0; i<liczba; i++){
+            suma+=i;
+        }
+        waitpid(0, &input, 0);
+        printf("Duma z rzodzica: %d\n", suma);
+        /* rodzic */
+    }else if (pid == 0) {
+        int i;
+        for(i=1; i<liczba;i=i+2){
+            
+            printf("dziecko, liczba nieparzysta: %d\n", i);
+        }
+        /* dziecko */
+    }else {
+        printf("nie udalo sie utworzyc dziecka\n");
+        /* dziecka nie udalo sie utworzyc. */
+    }
+
+
+return 0;
+
+}
+
+
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ gcc -Wall -ansi -pedantic -o zadanie5 zadanie5.c
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ ./zadanie5 13
+dziecko, liczba nieparzysta: 1
+dziecko, liczba nieparzysta: 3
+dziecko, liczba nieparzysta: 5
+dziecko, liczba nieparzysta: 7
+dziecko, liczba nieparzysta: 9
+dziecko, liczba nieparzysta: 11
+Duma z rzodzica: 78
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ 
+
+po porawieniu kodu na mniejsze rowne zeby liczbe zadana tez uwzgledniało:
+
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ ./zadanie5 13
+dziecko, liczba nieparzysta: 1
+dziecko, liczba nieparzysta: 3
+dziecko, liczba nieparzysta: 5
+dziecko, liczba nieparzysta: 7
+dziecko, liczba nieparzysta: 9
+dziecko, liczba nieparzysta: 11
+dziecko, liczba nieparzysta: 13
+Duma z rzodzica: 91
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ 
+
+zad6
+
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <stdlib.h>
+/*tworzenie wielu potomkow */
+int main(){
+    int i;
+    for(i=0;i<10;i++){
+        pid_t pid = fork();
+        if(pid>0){
+            wait(NULL); /*czekamy na zakonczenie dziecka */
+            break;
+        }else{
+            printf("i=%d PID: %d\t PPID%d\n", i,getpid(), getppid());
+        }
+       
+    }
+
+return 0;
+
+}
+
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ gcc -Wall -ansi -pedantic -o zadanie6 zadanie6.c
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ ./zadanie6
+i=0 PID: 1511	 PPID1510
+i=1 PID: 1512	 PPID1511
+i=2 PID: 1513	 PPID1512
+i=3 PID: 1514	 PPID1513
+i=4 PID: 1515	 PPID1514
+i=5 PID: 1516	 PPID1515
+i=6 PID: 1517	 PPID1516
+i=7 PID: 1518	 PPID1517
+i=8 PID: 1519	 PPID1518
+i=9 PID: 1520	 PPID1519
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ 
+
+10 procesów zgadzaja sie numery procesow rodzicow i dziecka.
+
+zwiekszam liczbe do 100 procesów.
+
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ gcc -Wall -ansi -pedantic -o zadanie6 zadanie6.c
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ ./zadanie6
+i=0 PID: 1511	 PPID1510
+i=1 PID: 1512	 PPID1511
+i=2 PID: 1513	 PPID1512
+i=3 PID: 1514	 PPID1513
+i=4 PID: 1515	 PPID1514
+i=5 PID: 1516	 PPID1515
+i=6 PID: 1517	 PPID1516
+i=7 PID: 1518	 PPID1517
+i=8 PID: 1519	 PPID1518
+i=9 PID: 1520	 PPID1519
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ gcc -Wall -ansi -pedantic -o zadanie6 zadanie6.c
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ ./zadanie6
+i=0 PID: 1534	 PPID1533
+i=1 PID: 1535	 PPID1534
+i=2 PID: 1536	 PPID1535
+i=3 PID: 1537	 PPID1536
+i=4 PID: 1538	 PPID1537
+i=5 PID: 1539	 PPID1538
+i=6 PID: 1540	 PPID1539
+i=7 PID: 1541	 PPID1540
+i=8 PID: 1542	 PPID1541
+i=9 PID: 1543	 PPID1542
+i=10 PID: 1544	 PPID1543
+i=11 PID: 1545	 PPID1544
+i=12 PID: 1546	 PPID1545
+i=13 PID: 1547	 PPID1546
+i=14 PID: 1548	 PPID1547
+i=15 PID: 1549	 PPID1548
+i=16 PID: 1550	 PPID1549
+i=17 PID: 1551	 PPID1550
+i=18 PID: 1552	 PPID1551
+i=19 PID: 1553	 PPID1552
+i=20 PID: 1554	 PPID1553
+i=21 PID: 1555	 PPID1554
+i=22 PID: 1556	 PPID1555
+i=23 PID: 1557	 PPID1556
+i=24 PID: 1558	 PPID1557
+i=25 PID: 1559	 PPID1558
+i=26 PID: 1560	 PPID1559
+i=27 PID: 1561	 PPID1560
+i=28 PID: 1562	 PPID1561
+i=29 PID: 1563	 PPID1562
+i=30 PID: 1564	 PPID1563
+i=31 PID: 1565	 PPID1564
+i=32 PID: 1566	 PPID1565
+i=33 PID: 1567	 PPID1566
+i=34 PID: 1568	 PPID1567
+i=35 PID: 1569	 PPID1568
+i=36 PID: 1570	 PPID1569
+i=37 PID: 1571	 PPID1570
+i=38 PID: 1572	 PPID1571
+i=39 PID: 1573	 PPID1572
+i=40 PID: 1574	 PPID1573
+i=41 PID: 1575	 PPID1574
+i=42 PID: 1576	 PPID1575
+i=43 PID: 1577	 PPID1576
+i=44 PID: 1578	 PPID1577
+i=45 PID: 1579	 PPID1578
+i=46 PID: 1580	 PPID1579
+i=47 PID: 1581	 PPID1580
+i=48 PID: 1582	 PPID1581
+i=49 PID: 1583	 PPID1582
+i=50 PID: 1584	 PPID1583
+i=51 PID: 1585	 PPID1584
+i=52 PID: 1586	 PPID1585
+i=53 PID: 1587	 PPID1586
+i=54 PID: 1588	 PPID1587
+i=55 PID: 1589	 PPID1588
+i=56 PID: 1590	 PPID1589
+i=57 PID: 1591	 PPID1590
+i=58 PID: 1592	 PPID1591
+i=59 PID: 1593	 PPID1592
+i=60 PID: 1594	 PPID1593
+i=61 PID: 1595	 PPID1594
+i=62 PID: 1596	 PPID1595
+i=63 PID: 1597	 PPID1596
+i=64 PID: 1598	 PPID1597
+i=65 PID: 1599	 PPID1598
+i=66 PID: 1600	 PPID1599
+i=67 PID: 1601	 PPID1600
+i=68 PID: 1602	 PPID1601
+i=69 PID: 1603	 PPID1602
+i=70 PID: 1604	 PPID1603
+i=71 PID: 1605	 PPID1604
+i=72 PID: 1606	 PPID1605
+i=73 PID: 1607	 PPID1606
+i=74 PID: 1608	 PPID1607
+i=75 PID: 1609	 PPID1608
+i=76 PID: 1610	 PPID1609
+i=77 PID: 1611	 PPID1610
+i=78 PID: 1612	 PPID1611
+i=79 PID: 1613	 PPID1612
+i=80 PID: 1614	 PPID1613
+i=81 PID: 1615	 PPID1614
+i=82 PID: 1616	 PPID1615
+i=83 PID: 1617	 PPID1616
+i=84 PID: 1618	 PPID1617
+i=85 PID: 1619	 PPID1618
+i=86 PID: 1620	 PPID1619
+i=87 PID: 1621	 PPID1620
+i=88 PID: 1622	 PPID1621
+i=89 PID: 1623	 PPID1622
+i=90 PID: 1624	 PPID1623
+i=91 PID: 1625	 PPID1624
+i=92 PID: 1626	 PPID1625
+i=93 PID: 1627	 PPID1626
+i=94 PID: 1628	 PPID1627
+i=95 PID: 1629	 PPID1628
+i=96 PID: 1630	 PPID1629
+i=97 PID: 1631	 PPID1630
+i=98 PID: 1632	 PPID1631
+i=99 PID: 1633	 PPID1632
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ 
+
+Zad 7)
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <stdlib.h>
+/*tworzenie wielu potomkow */
+int main(){
+    int i;
+    pid_t masterPid = getpid();
+    printf("masterpid:%d\n",masterPid);
+    for(i=0;i<100;i++){
+        if(getpid()==masterPid){
+            
+            if(fork()==0){
+            printf("i=%d PID: %d\t PPID%d\n", i,getpid(), getppid());
+            }
+        }             
+    }
+    if(masterPid == getpid()){
+        int status =0;
+        waitpid(0, &status,0);
+        printf("Rodzic zakal, koniec\n");
+    }
+return 0;
+
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ ./zadanie7
+masterpid:1824
+i=4 PID: 1829	 PPID1824
+i=3 PID: 1828	 PPID1824
+i=5 PID: 1830	 PPID1824
+i=6 PID: 1831	 PPID1824
+i=2 PID: 1827	 PPID1824
+i=7 PID: 1832	 PPID1824
+i=9 PID: 1834	 PPID1824
+i=8 PID: 1833	 PPID1824
+i=1 PID: 1826	 PPID1824
+i=10 PID: 1835	 PPID1824
+i=18 PID: 1843	 PPID1824
+i=14 PID: 1839	 PPID1824
+i=15 PID: 1840	 PPID1824
+i=16 PID: 1841	 PPID1824
+i=11 PID: 1836	 PPID1824
+i=12 PID: 1837	 PPID1824
+i=13 PID: 1838	 PPID1824
+i=17 PID: 1842	 PPID1824
+i=19 PID: 1844	 PPID1824
+i=0 PID: 1825	 PPID1824
+i=20 PID: 1845	 PPID1824
+i=21 PID: 1846	 PPID1824
+i=22 PID: 1847	 PPID1824
+i=24 PID: 1849	 PPID1824
+i=23 PID: 1848	 PPID1824
+i=25 PID: 1850	 PPID1824
+i=27 PID: 1852	 PPID1824
+i=26 PID: 1851	 PPID1824
+i=29 PID: 1854	 PPID1824
+i=28 PID: 1853	 PPID1824
+i=30 PID: 1855	 PPID1824
+i=32 PID: 1857	 PPID1824
+i=31 PID: 1856	 PPID1824
+i=33 PID: 1858	 PPID1824
+i=35 PID: 1860	 PPID1824
+i=34 PID: 1859	 PPID1824
+i=36 PID: 1861	 PPID1824
+i=38 PID: 1863	 PPID1824
+i=39 PID: 1864	 PPID1824
+i=37 PID: 1862	 PPID1824
+i=41 PID: 1866	 PPID1824
+i=40 PID: 1865	 PPID1824
+i=42 PID: 1867	 PPID1824
+i=43 PID: 1868	 PPID1824
+i=44 PID: 1869	 PPID1824
+i=46 PID: 1871	 PPID1824
+i=45 PID: 1870	 PPID1824
+i=48 PID: 1873	 PPID1824
+i=47 PID: 1872	 PPID1824
+i=50 PID: 1875	 PPID1824
+i=49 PID: 1874	 PPID1824
+i=52 PID: 1877	 PPID1824
+i=51 PID: 1876	 PPID1824
+i=53 PID: 1878	 PPID1824
+i=67 PID: 1892	 PPID1824
+i=68 PID: 1893	 PPID1824
+i=69 PID: 1894	 PPID1824
+i=70 PID: 1895	 PPID1824
+i=59 PID: 1884	 PPID1824
+i=60 PID: 1885	 PPID1824
+i=64 PID: 1889	 PPID1824
+i=61 PID: 1886	 PPID1824
+i=62 PID: 1887	 PPID1824
+i=63 PID: 1888	 PPID1824
+i=65 PID: 1890	 PPID1824
+i=66 PID: 1891	 PPID1824
+i=71 PID: 1896	 PPID1824
+i=73 PID: 1898	 PPID1824
+i=72 PID: 1897	 PPID1824
+i=58 PID: 1883	 PPID1824
+i=57 PID: 1882	 PPID1824
+i=56 PID: 1881	 PPID1824
+i=55 PID: 1880	 PPID1824
+i=85 PID: 1910	 PPID1824
+i=92 PID: 1917	 PPID1824
+i=94 PID: 1919	 PPID1824
+i=95 PID: 1920	 PPID1824
+i=97 PID: 1922	 PPID1824
+i=99 PID: 1924	 PPID1824
+Rodzic zakal, koniec
+i=86 PID: 1911	 PPID1824
+i=87 PID: 1912	 PPID1824
+i=89 PID: 1914	 PPID1824
+i=76 PID: 1901	 PPID1824
+i=77 PID: 1902	 PPID1824
+i=78 PID: 1903	 PPID1824
+i=79 PID: 1904	 PPID1824
+i=80 PID: 1905	 PPID1824
+i=82 PID: 1907	 PPID1824
+i=83 PID: 1908	 PPID1824
+i=88 PID: 1913	 PPID1824
+i=90 PID: 1915	 PPID1824
+i=84 PID: 1909	 PPID1824
+i=81 PID: 1906	 PPID1824
+i=91 PID: 1916	 PPID1824
+i=75 PID: 1900	 PPID1824
+i=74 PID: 1899	 PPID1824
+i=93 PID: 1918	 PPID1824
+i=96 PID: 1921	 PPID1824
+i=54 PID: 1879	 PPID1824
+i=98 PID: 1923	 PPID1824
+ubuntu@bss-ubu1804:~/Desktop/c/cw5$ 
+
+
+
+
