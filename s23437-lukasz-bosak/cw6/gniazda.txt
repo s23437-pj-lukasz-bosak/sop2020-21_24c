@@ -1,0 +1,67 @@
+Gniazda:
+
+Pliki z rozszerzeniem socet lub soc to sockety unixowe, 
+pliki ustanawiające połaczenie sieciowe w obrębie jednej maszyny.
+Istnieja równie sockety internetowe.
+
+1) WAŻNE aby sorawdzic zakres portów ( porty od 1 do 65535 == 2^16-1)
+wyróżniamy porty niskie, zarezerwowane dla systemu, trzeba miec uprawnienia root.
+np. 80 dla Http, 443 - połączenia szyfrowane.
+Jezeli dany program uruchamia sie na danym porcie to on go "zawszaszcza" co oznacza, że żadan inny program nie będzie mógł kożystać z tego portu.
+
+2) Start server 
+
+Server startujemy na okreslonym porcie. inicjujemy zmienne.
+
+server podczas inicjalizacji musi sobie stworzyć socket ktory bedzie oplączony z interfejsem sieciowym.
+
+socke/gniazdo - "wirtualne" gniazdko do którego będą podłączone polączenia przychodzące.
+socket - nrIP:NR_PORTU
+
+Gniazdo tworzone jest przez socket file desriptor.
+
+3) Przypisanie portu do servera.
+
+Po wystartowaniu servera musimy przypisac do niego Port za pomocą funkcji bind() - od tego momentu dany socket jest przypisany do tego 
+konkretnego portu ( ten port nie bedzie mogl zostać użyty przez inny program)
+
+accept file descriptor - tworzony jest w momencie przyjacia połączenia przychodzącego. akceptuje połączenieprzychadzące.
+Połączenie raz zaakceptowane jest połączeniem dwukierunkowym ( mozna wysyłać odbierac - połączenie binarne)
+
+4)tworzenie socket file desriptor.
+
+funkcja socket( AF_INET, SOCK_STREAM, 0) - pierwszy argument - to typ połączenia ( UNIXOWE, INTERNETOWE - inet)
+2 argument - SOCK_STREAM:  (TCP - wolne ale pewne, sprawdza czy do klienta dostarzcona została
+informacja prawidłowo,czeka na potwierdzenie, UDP - Szybko ale bez sprawdzenia przesłanej informacji.) 
+3 parametr to zero - system sam dobiera odpowiednie połączenie.
+
+4) Zerowanie server addres
+
+funkcja bzero() - funcja pobiera adres z pamięci i wpisuje zera - zeruje
+
+5) porty
+
+nr portu nie podajemy za pomoca zwyklego inta ale za pomocą notacji sieciowej.
+
+htons() - host to network short 16 bity
+htonl ()- host to network long 32 bity
+
+funkcja ta konwertuje int do network byte order.
+
+6) Połączenie utworzonego socketa z portem.
+
+wykonuje sie to za pomocą funkcji bind()
+jesli funkcja ta wykona sie prawidłowo to można rozpocząć nasluch za pomocą
+funkcji listen()
+
+od tego momentu mozna na ten port cos wysłać , server zareaguje.
+
+ąccept () - server bedzie czekał na podłączenie klienta.
+
+jesli ta funkcja wykonała sie pomyślnie możemy wyzerować bufor za pomocą funkcji bzero()
+Po otrzymaniu przez server informacji od klienta, server odczyta ja za pomocą funkcji read().
+Po odczytaniu danych od klienta server wyśle informacje spowrotem do klienta ( funkcja write())
+
+7) Zamknięcie servera
+
+Jesli wyszstko wykonało sie poprawnie "zamykamy" server, accept file descripto i accept socket descriptor funkcją close()
